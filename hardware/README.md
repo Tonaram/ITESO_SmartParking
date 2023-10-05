@@ -11,7 +11,7 @@ Information related to the hardware components used in the ITESO Parking Project
 ## Codes used to establish connection with sensor and ESP32
 
 ### Connect with WiFi
-
+```
 #include "WiFi.h"
 //#include "ESP8266WiFi.h"
 // WiFi parameters to be configured
@@ -37,9 +37,9 @@ void setup(void)
 void loop() {
   // Nothing
 }
-
+```
 ### Ultrasonic sensor showing if there is a car 
-
+```
 #include <NewPing.h>
 
 #define TRIGGER_PIN 5
@@ -64,10 +64,10 @@ void loop() {
     Serial.println("No hay auto estacionado.");
   }
 }
-
+```
 
 ### Infrared sensor showing if there is a car
-
+```
 const int irPin = 5;  // Pin donde está conectado el sensor infrarrojo
 
 void setup() {
@@ -88,9 +88,9 @@ void loop() {
 
   delay(1000);  // Espera 1 segundo entre lecturas
 }
-
+```
 ### Ultrasonic sensor showing distance and if there is a car
-
+```
 #include <NewPing.h>
 
 #define TRIGGER_PIN 5
@@ -118,3 +118,4 @@ void loop() {
     Serial.println("No hay auto estacionado.");
   }
 }
+```
