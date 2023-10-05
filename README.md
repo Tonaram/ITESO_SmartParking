@@ -27,6 +27,6 @@ ITESO students, when arriving at their classes at the university, often face cha
 
 ## Team
 
-- **Teammate1** 
-- **Teammate2**
-- **Teammate3**
+- Ana Sofía Martínez
+- Sofía Arceo
+- Tonatiuh Ramos
