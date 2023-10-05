@@ -1,0 +1,43 @@
+html {
+    scroll-behavior: smooth;
+}
+.navbar{
+    background-color: black;
+    opacity: .7;
+}
+.introImage{
+    height: 650px;
+    width: 100%;
+    background-image: url("https://lh3.googleusercontent.com/drive-viewer/AK7aPaCJIi5_lh2bMnw-MCtHsC_YGNvHbbQzqNdejiKhMrwLBuv28iXon9DoZtrKQ7xO_VZ_C--raKnZqH5SA4Uzu9ICUrNVeQ=s1600");
+    background-size: cover;
+}
+.titlePage{
+    color: white;
+    text-align: center;
+    font-size:60px; 
+    font-weight:200; 
+    letter-spacing:7px;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+}
+.footer{
+    /* background-color: rgb(70, 70, 70); */
+    background-color: black;
+    color: lightgray;
+    text-align: center;
+}
+.logoIteso{
+    height: 70px;
+    margin: 2%;
+}
+.title{
+    font-size:30px; 
+    letter-spacing:3px;
+}
+.mapa{
+    text-align: center;
+}
+.car{
+    width: 75px;
+}
