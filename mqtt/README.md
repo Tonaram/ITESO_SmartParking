@@ -13,7 +13,7 @@ Brief on how MQTT is used in the project, its purpose, and what data is sent/rec
 ## Codes used
 
 ### Establishing connection between ESP32 and AWS EC2 instance and sending a message
-
+```
 #include <NewPing.h>
 #include <PubSubClient.h>
 #include <WiFi.h>
@@ -92,3 +92,4 @@ void loop() {
   
   delay(5000); // Espera 5 segundos antes de la siguiente medición y envío MQTT
 }
+```
