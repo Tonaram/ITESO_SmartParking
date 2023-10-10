@@ -20,7 +20,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.log('Error connecting to MongoDB Atlas', err));
 
 // Setting up MQTT client
-const client = mqtt.connect('mqtt://test.mosquitto.org');
+const client = mqtt.connect('mqtt://3.128.139.227');
 const TOPIC = 'topico_mqtt';
 
 // Mongoose model for parking spot status
