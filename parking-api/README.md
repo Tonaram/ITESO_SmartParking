@@ -27,10 +27,10 @@ parking-api/
 
 1. Clone the repository:
 ```bash
-git clone [repository-url] parking-api
+git clone [repository-url]
 ```
 
-2. Navigate to the cloned directory:
+2. Navigate to the api directory:
 ```bash
 cd parking-api
 ```
