@@ -1,6 +1,6 @@
 # Parking API
 
-Parking API is an Express-based server application that provides endpoints for retrieving parking spot status and related statistics. It integrates with MongoDB for data storage and MQTT for real-time data updates from parking sensors. [Demostration of the API & UI][https://youtu.be/EiegnvespuY?si=eeuxtka-xzhi2wBN]
+Parking API is an Express-based server application that provides endpoints for retrieving parking spot status and related statistics. It integrates with MongoDB for data storage and MQTT for real-time data updates from parking sensors. [Demostration of the API & UI](https://youtu.be/EiegnvespuY?si=eeuxtka-xzhi2wBN)
 
 ## Directory Structure
 
