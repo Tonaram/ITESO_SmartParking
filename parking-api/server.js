@@ -44,14 +44,28 @@ client.on('connect', () => {
   });
 });
 
+// Counter for consecutive "occupied" signals
+let occupiedCounter = 0;
+
 client.on('message', async (topic, message) => {
   if (topic === TOPIC) {
     try {
       const newStatus = parseInt(message.toString());
 
-      // Only update if the status has changed
-      if (newStatus !== lastStatus) { 
+      if (newStatus === 1) { // If the signal is "occupied"
+        occupiedCounter++;
+      } else { // If the signal is "free"
+        occupiedCounter = 0;
+      }
+
+      // Only update if the status has changed and "occupied" signal received 3 times consecutively
+      if (newStatus !== lastStatus && (newStatus === 0 || (newStatus === 1 && occupiedCounter >= 3))) {
         lastStatus = newStatus;
+
+        // Reset counter after updating
+        if (newStatus === 1 && occupiedCounter >= 3) {
+          occupiedCounter = 0;
+        }
 
         // Update parking spot status
         await ParkingSpot.findOneAndUpdate({}, { status: newStatus }, { upsert: true, new: true });
