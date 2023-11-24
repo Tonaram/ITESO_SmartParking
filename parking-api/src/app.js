@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.static('public')); // Adjust as necessary to point to the correct directory
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 // Routes

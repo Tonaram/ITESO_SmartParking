@@ -1,0 +1,239 @@
+<!-- public\statistics.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkingITESO</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/theus/chart.css/v1.0.0/dist/chart.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./statistics.css">
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+          <a class="navbar-brand" href="index.html">Parking ITESO</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Spots<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Map</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Statistics</a>
+              </li>
+            </ul>
+        </div>
+        </nav>
+    </div>
+
+    <div>
+      <p class="title">Parking Statistics</p>
+    
+      <!-- Date Picker -->
+      <label for="datePicker">Select Date:</label>
+      <input type="date" id="datePicker" onchange="fetchData()">
+      <!-- Refresh Button -->
+      <button onclick="fetchData()">Refresh Data</button>
+    
+      <!-- Analytics Display -->
+      <div id="totalOccupiedMinutes">Total Occupied Minutes: <span></span></div>
+      <div id="numberOfTimesUsed">Number of Times Used: <span></span></div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="occupiedTimeChart"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="usageFrequencyChart"></canvas>
+      </div>
+    </div>
+    <!-- Additional row for weekly statistics -->
+    <div class="row">
+      <div class="col-md-6">
+        <canvas id="occupiedTimeWeeklyChart"></canvas>
+      </div>
+      <div class="col-md-6">
+        <canvas id="usageFrequencyWeeklyChart"></canvas>
+      </div>
+    </div>
+
+
+    <!-- Script for parking statistics -->
+    <script>
+      let occupiedTimeChartInstance;
+      let usageFrequencyChartInstance;
+      let occupiedTimeWeeklyChartInstance;
+      let usageFrequencyWeeklyChartInstance;
+
+      // Function to render the Total Occupied Time Chart
+      function renderOccupiedTimeChart(data) {
+        const ctx = document.getElementById('occupiedTimeChart').getContext('2d');
+        if (occupiedTimeChartInstance) {
+          occupiedTimeChartInstance.destroy(); // Destroy the previous instance if it exists
+        }
+        occupiedTimeChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: data.labels, // Labels for each hour
+            datasets: [{
+              label: 'Total Occupied Minutes',
+              data: data.values, // The data for each label
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+
+      // Function to render the Usage Frequency Chart
+      function renderUsageFrequencyChart(data) {
+        const ctx = document.getElementById('usageFrequencyChart').getContext('2d');
+        if (usageFrequencyChartInstance) {
+          usageFrequencyChartInstance.destroy(); // Destroy the previous instance if it exists
+        }
+        usageFrequencyChartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels, // Labels for each time slot
+            datasets: [{
+              label: 'Number of Times Used',
+              data: data.values, // The data for each label
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+      // Function to render the Weekly Occupied Time Chart
+      function renderOccupiedTimeWeeklyChart(data) {
+        const ctx = document.getElementById('occupiedTimeWeeklyChart').getContext('2d');
+        if (occupiedTimeWeeklyChartInstance) {
+          occupiedTimeWeeklyChartInstance.destroy();
+        }
+        occupiedTimeWeeklyChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: data.labels, 
+            datasets: [{
+              label: 'Total Occupied Minutes (Weekly)',
+              data: data.values, 
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+      //Function to render the Weekly Usage Frequency Chart
+      function renderUsageFrequencyWeeklyChart(data) {
+        const ctx = document.getElementById('usageFrequencyWeeklyChart').getContext('2d');
+        if (usageFrequencyWeeklyChartInstance) {
+          usageFrequencyWeeklyChartInstance.destroy();
+        }
+        usageFrequencyWeeklyChartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels, 
+            datasets: [{
+              label: 'Number of Times Used (Weekly)',
+              data: data.values, 
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+
+      async function fetchData() {
+        const date = document.getElementById('datePicker').value;
+
+        // Fetch total occupied minutes
+        const occupiedMinutesResponse = await fetch(`/api/totalOccupiedMinutes?date=${date}`);
+        const occupiedMinutesData = await occupiedMinutesResponse.json();
+        document.getElementById('totalOccupiedMinutes').querySelector('span').textContent = occupiedMinutesData.minutes;
+
+        // Fetch number of times used
+        const timesUsedResponse = await fetch(`/api/numberOfTimesUsed?date=${date}`);
+        const timesUsedData = await timesUsedResponse.json();
+        document.getElementById('numberOfTimesUsed').querySelector('span').textContent = timesUsedData.count;
+
+        // Fetch data for occupied time chart
+        const occupiedTimeChartData = await (await fetch(`/api/occupiedTimeChartData?date=${date}`)).json();
+        renderOccupiedTimeChart(occupiedTimeChartData);
+
+        // Fetch data for usage frequency chart
+        const usageFrequencyChartData = await (await fetch(`/api/usageFrequencyChartData?date=${date}`)).json();
+        renderUsageFrequencyChart(usageFrequencyChartData);
+
+        // Fetch data for weekly occupied time chart
+        const occupiedTimeWeeklyChartData = await (await fetch(`/api/occupiedTimeWeeklyChartData?date=${date}`)).json();
+        renderOccupiedTimeWeeklyChart(occupiedTimeWeeklyChartData);
+
+        // Fetch data for weekly usage frequency chart
+        const usageFrequencyWeeklyChartData = await (await fetch(`/api/usageFrequencyWeeklyChartData?date=${date}`)).json();
+        renderUsageFrequencyWeeklyChart(usageFrequencyWeeklyChartData);
+      }
+
+      // Fetch initial data for today's date upon page load
+      window.onload = () => {
+        const today = new Date().toISOString().slice(0, 10);
+        document.getElementById('datePicker').value = today;
+        fetchData();
+      };
+    </script>
+
+    <!-- Footer -->
+    <div class="footer">
+      <img class="logoIteso" src="https://oci02.img.iteso.mx/Identidades-De-Instancia/ITESO/Logos%20ITESO/Logo-ITESO-Principal-Sinfondo-horizontal.png">
+      
+    </div>
+</body>
+</html>
