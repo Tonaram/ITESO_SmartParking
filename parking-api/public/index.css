@@ -6,9 +6,9 @@ html {
     opacity: .7;
 }
 .introImage{
-    height: 650px;
+    height: 550px;
     width: 100%;
-    background-image: url("https://lh3.googleusercontent.com/drive-viewer/AK7aPaCJIi5_lh2bMnw-MCtHsC_YGNvHbbQzqNdejiKhMrwLBuv28iXon9DoZtrKQ7xO_VZ_C--raKnZqH5SA4Uzu9ICUrNVeQ=s1600");
+    background-image: url(images/cover2.png);
     background-size: cover;
 }
 .titlePage{
@@ -18,8 +18,11 @@ html {
     font-weight:200; 
     letter-spacing:7px;
     position: absolute;
-    top: 30%;
-    left: 25%;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
 }
 .footer{
     /* background-color: rgb(70, 70, 70); */
